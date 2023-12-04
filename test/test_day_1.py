@@ -18,7 +18,7 @@ zoneight234
     assert day_1.solve_part_2(input) == 281
 
 def test_word_num_conv():
-    assert day_1.convert_eng_to_str_int('onetwothreefour') == '1234'
+    assert day_1.convert_eng_to_str_int('onetwothreefour') == 'one1onetwo2twothree3threefour4four'
 
 def test_first_last_num():
     assert day_1.get_calib_val('12345') == 15

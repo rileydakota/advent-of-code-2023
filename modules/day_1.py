@@ -13,7 +13,7 @@ valid_string_words = {
 def convert_eng_to_str_int(line:str, string_words_dict=valid_string_words) -> str:
     res = line.lower()
     for key, val, in string_words_dict.items():
-        res = res.replace(key, val)
+        res = res.replace(key, str(key + val + key))
     return res
 
 def get_calib_val(line:str) -> int:
@@ -25,8 +25,6 @@ def get_calib_val(line:str) -> int:
         res = nums[0] + nums[-1]
         return int(res)
     except Exception as e:
-        print(nums)
-        print(line)
         raise e
 
 
