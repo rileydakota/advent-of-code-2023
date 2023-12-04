@@ -17,6 +17,11 @@ def solve():
     day2_part1 = day_2.solve_part_1(day2_input)
     print(f"the day 2 part 1 answer is {day2_part1}")
 
+    day2_part2 = day_2.solve_part_2(day2_input)
+    print(f"the day 2 part 2 answer is {day2_part2}")
+
+
+
 
 if __name__ == "__main__":
     solve()

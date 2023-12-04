@@ -29,7 +29,6 @@ class Game():
                     color = split[1].lower()
                     count = int(split[0])
                 except Exception as e:
-                    print(split)
                     raise e
                 match color:
                     case 'red':
@@ -59,6 +58,18 @@ def is_game_possible(red, green, blue, game) -> bool:
     
     return ( red >= max(reds) and green >= max(greens) and blue >= max(blues) )
 
+def get_min_cubes(game) -> Set:
+    reds = []
+    greens = []
+    blues = []
+
+    for game_set in game:
+        reds.append(game_set.red)
+        blues.append(game_set.blue)
+        greens.append(game_set.green)
+
+    return Set(red=max(reds), green=max(greens), blue=max(blues))
+
 def solve_part_1(input) -> int:
     games_raw = input.split('\n')
     games = []
@@ -75,4 +86,17 @@ def solve_part_1(input) -> int:
 
     return res
 
+def solve_part_2(input) -> int:
+    games_raw = input.split('\n')
+    games = []
+    for game_raw in games_raw:
+        games.append(Game(game_raw))
+
+    res = 0
+    for game in games:
+        min_cubes = get_min_cubes(game)
+        power = min_cubes.red * min_cubes.green * min_cubes.blue
+        res += power
+    
+    return res
 

@@ -43,6 +43,14 @@ def test_is_game_possible():
 
     assert day_2.is_game_possible(red=12, green=13, blue=14, game=game) == True
 
+def test_get_min_cubes():
+
+    input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
+    game = day_2.Game(input)
+    min_cubes = day_2.get_min_cubes(game)
+
+    assert min_cubes.red == 4 and min_cubes.green == 2 and min_cubes.blue == 6
+
 def test_example_input():
 
     input = """Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -52,6 +60,7 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
 
     assert day_2.solve_part_1(input) == 8
+    
     
 
 
