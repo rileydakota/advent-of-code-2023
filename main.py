@@ -1,4 +1,4 @@
-from modules import day_1, day_2
+from modules import day_1, day_2, day_4
 
 
 def get_puzzle_input(input_name) -> str:
@@ -20,6 +20,11 @@ def solve():
 
     day2_part2 = day_2.solve_part_2(day2_input)
     print(f"the day 2 part 2 answer is {day2_part2}")
+
+    day_4_input = get_puzzle_input("day_4")
+
+    day4_part1 = day_4.solve_part_1(day_4_input)
+    print(f"the day 4 part 1 answer is {day4_part1}")
 
 
 if __name__ == "__main__":
