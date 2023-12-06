@@ -1,43 +1,40 @@
 class ScratchCardManager:
-    def __init__(self, card_array:list):
+    def __init__(self, card_array: list):
         self.card_array = card_array
         self.card_dict = {}
 
         for card in self.card_array:
-            self.card_dict[card.card_id] = {
-                'copies': 1,
-                'card': card
-            }
+            self.card_dict[card.card_id] = {"copies": 1, "card": card}
 
-    def copy_card(self, card_id:int):
-        self.card_dict[card_id]['copies'] += 1
+    def copy_card(self, card_id: int):
+        self.card_dict[card_id]["copies"] += 1
 
-    def win_cards(self, win_card_id:int, win_num_count:int):
+    def win_cards(self, win_card_id: int, win_num_count: int):
         win_card_increment = win_card_id + 1
         for x in range(0, win_num_count):
             self.copy_card(win_card_increment)
             win_card_increment += 1
+
     def get_card(self, card_id):
-        return self.card_dict[card_id]['card']
+        return self.card_dict[card_id]["card"]
 
     def eval_all_cards(self):
         for card_id in self.card_dict.keys():
             card = self.get_card(card_id)
             self.win_cards(card_id, len(card.get_winning_numbers()))
-            if self.card_dict[card_id]['copies'] > 1:
-                for x in range(1, self.card_dict[card_id]['copies']):
-                    winning_num_count = len(self.get_card(card_id).get_winning_numbers())
+            if self.card_dict[card_id]["copies"] > 1:
+                for x in range(1, self.card_dict[card_id]["copies"]):
+                    winning_num_count = len(
+                        self.get_card(card_id).get_winning_numbers()
+                    )
                     if winning_num_count > 0:
                         self.win_cards(card_id, winning_num_count)
 
     def get_total_cards(self):
         count = 0
         for card_id in self.card_dict.keys():
-            count += self.card_dict[card_id]['copies']
+            count += self.card_dict[card_id]["copies"]
         return count
-
-
-
 
 
 class ScratchCard:
@@ -52,7 +49,7 @@ class ScratchCard:
     def __get_card_id(self, card_str: str):
         try:
             split = card_str.split(":")[0].split(" ")
-            split_clean = remove_items(split, '')
+            split_clean = remove_items(split, "")
             return int(split_clean[1])
         except Exception as e:
             print(f"failed to parse card. raw string: {card_str}")
@@ -107,6 +104,7 @@ def solve_part_1(input: str):
         total += card.get_point_value()
 
     return total
+
 
 def solve_part_2(input: str):
     cards = [ScratchCard(x) for x in input.split("\n")]

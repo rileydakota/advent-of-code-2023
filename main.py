@@ -29,5 +29,6 @@ def solve():
     day4_part2 = day_4.solve_part_2(day_4_input)
     print(f"the day 4 part 2 solution is {day4_part2}")
 
+
 if __name__ == "__main__":
     solve()
