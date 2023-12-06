@@ -14,7 +14,7 @@ class ScratchCardManager:
 
     def win_cards(self, win_card_id:int, win_num_count:int):
         win_card_increment = win_card_id + 1
-        for x in range(1, win_num_count):
+        for x in range(0, win_num_count):
             self.copy_card(win_card_increment)
             win_card_increment += 1
     def get_card(self, card_id):
@@ -24,14 +24,15 @@ class ScratchCardManager:
         for card_id in self.card_dict.keys():
             card = self.get_card(card_id)
             self.win_cards(card_id, len(card.get_winning_numbers()))
-            for x in range(1, self.card_dict[card_id]['copies']):
-                winning_num_count = len(self.get_card(card_id).get_winning_numbers())
-                if winning_num_count > 0:
-                    self.win_cards(card_id, winning_num_count)
+            if self.card_dict[card_id]['copies'] > 1:
+                for x in range(1, self.card_dict[card_id]['copies']):
+                    winning_num_count = len(self.get_card(card_id).get_winning_numbers())
+                    if winning_num_count > 0:
+                        self.win_cards(card_id, winning_num_count)
 
     def get_total_cards(self):
         count = 0
-        for card_id in self.card_dict.keys:
+        for card_id in self.card_dict.keys():
             count += self.card_dict[card_id]['copies']
         return count
 
@@ -42,12 +43,17 @@ class ScratchCardManager:
 class ScratchCard:
     def __init__(self, card_str: str):
         self.card_str = card_str
-        self.card_id = int(self.__get_card_id(self.card_str))
+        self.card_id = self.__get_card_id(self.card_str)
         self.__parse_card_string(self.card_str)
+
+    def __str__(self):
+        return f"Card ID: {self.card_id} Winning Numbers: {self.winning_nums} Card Numbers {self.card_nums} Matching Numbers: {self.get_winning_numbers()}"
 
     def __get_card_id(self, card_str: str):
         try:
-            return card_str.split(":")[0].split(" ")[1]
+            split = card_str.split(":")[0].split(" ")
+            split_clean = remove_items(split, '')
+            return int(split_clean[1])
         except Exception as e:
             print(f"failed to parse card. raw string: {card_str}")
             raise e
@@ -101,3 +107,10 @@ def solve_part_1(input: str):
         total += card.get_point_value()
 
     return total
+
+def solve_part_2(input: str):
+    cards = [ScratchCard(x) for x in input.split("\n")]
+
+    manager = ScratchCardManager(cards)
+    manager.eval_all_cards()
+    return manager.get_total_cards()

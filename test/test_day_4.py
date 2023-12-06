@@ -18,10 +18,9 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
     assert card_manager.card_dict[2]['copies'] == 2
 
     card_manager = day_4.ScratchCardManager(card_array)
-    res = card_manager.eval_all_cards()
-    print(card_manager.card_dict)
+    card_manager.eval_all_cards()
+    res = card_manager.get_total_cards()
     assert res == 30
-
 
 
 def test_scratch_card():
