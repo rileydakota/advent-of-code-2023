@@ -1,5 +1,29 @@
 from modules import day_3
 
+def test_get_numbers():
+    input = """467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598.."""
+
+    grid = day_3.EngineSchematic(raw_data=input)
+    numbers = grid.get_numbers()
+    assert numbers[0].integers[0].x == 0
+    assert numbers[0].integers[0].y == 0
+    assert len(numbers) == 10
+    assert numbers[0].get_integer() == 467
+    assert numbers[1].get_integer() == 114
+    assert len(grid.part_numbers) == 8
+
+    assert grid.part_numbers == [467, 35, 633, 617, 592, 755, 664, 598]
+
+    assert grid.get_part_number_sum() == 4361
 
 def test_grid():
     input = """467..114..
@@ -13,7 +37,7 @@ def test_grid():
 ...$.*....
 .664.598.."""
 
-    grid = day_3.Grid(raw_data=input)
+    grid = day_3.EngineSchematic(raw_data=input)
 
     assert grid.get(0, 0) == "4"
     assert grid.get_below(0, 0) == "."
