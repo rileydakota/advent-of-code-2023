@@ -24,6 +24,8 @@ def solve():
     day3_input = get_puzzle_input("day_3")
     day3_part1 = day_3.solve_part_1(day3_input)
     print(f"the day 3 part 1 answer is {day3_part1}")
+    day3_part2 = day_3.solve_part_2(day3_input)
+    print(f"the day 3 part 2 answer is {day3_part2}")
 
     #day_4_input = get_puzzle_input("day_4")
 

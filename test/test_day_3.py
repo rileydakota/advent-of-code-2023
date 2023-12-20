@@ -1,5 +1,40 @@
 from modules import day_3
 
+def test_get_gear_ratios():
+    input = """467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598.."""
+
+    grid = day_3.EngineSchematic(raw_data=input)
+
+    assert grid.numbers[0].x == {0,1,2}
+    assert grid.numbers[0].y == {0,0,0}
+    assert grid.gear_symbols[0].x == 3
+    assert grid.gear_symbols[0].y == 1
+
+    assert len(grid.gear_symbols) == 3
+    assert day_3.are_adjacent(grid.gear_symbols[0], grid.numbers[0])
+    assert day_3.are_adjacent(grid.gear_symbols[2], grid.numbers[0]) == False
+    assert day_3.are_adjacent(grid.gear_symbols[2], grid.numbers[1]) == False
+    assert day_3.are_adjacent(grid.gear_symbols[1], grid.numbers[4])
+
+    assert len(grid.gear_symbols[0].adjacent_numbers) == 2
+    assert len(grid.gear_symbols[2].adjacent_numbers) == 2
+    assert len(grid.gear_ratios) == 2
+
+    assert grid.gear_ratios == [16345, 451490]
+    assert sum(grid.gear_ratios) == 467835
+
+
+
+
 def test_get_numbers():
     input = """467..114..
 ...*......
