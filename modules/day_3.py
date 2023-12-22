@@ -18,9 +18,6 @@ class GearSymbol:
     def __repr__(self):
         return f"GearSymbol(x={self.x}, y={self.y})"
     
-    
-
-
 class SchematicInteger:
     def __init__(self, val, x, y):
         self.x = x
