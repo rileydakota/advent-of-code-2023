@@ -38,6 +38,8 @@ def solve():
     day5_input = get_puzzle_input("day_5")
     day5_part1 = day_5.solve_part_1(day5_input)
     print(f"the day 5 part 1 solution is {day5_part1}")
+    #day_5_part2 = day_5.solve_part_2(day5_input)
+    #print(f"the day 5 part 1 solution is {day_5_part2}")
 
 
 if __name__ == "__main__":

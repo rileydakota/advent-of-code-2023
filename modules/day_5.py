@@ -12,6 +12,7 @@ class Almanac:
     light_to_temp = []
     temp_to_humd = []
     humd_to_loc = []
+    expand: bool
 
     def __post_init__(self):
         self._parse_alamanac()
@@ -29,7 +30,12 @@ class Almanac:
 
     def _parse_alamanac(self):
 
-        self.seeds = [int(x) for x in re.search(r'seeds: [0-9 ]*', self.input).group(0).split(':')[1].strip().split(' ')]
+        if self.expand:
+            print('expanding')
+            print([int(x) for x in re.search(r'seeds: [0-9 ]*', self.input).group(0).split(':')[1].strip().split(' ')])
+            self.seeds = expand_ranges([int(x) for x in re.search(r'seeds: [0-9 ]*', self.input).group(0).split(':')[1].strip().split(' ')])
+        else:
+            self.seeds = [int(x) for x in re.search(r'seeds: [0-9 ]*', self.input).group(0).split(':')[1].strip().split(' ')]
         self.seed_to_soil = [[int(y) for y in x.split(' ')] for x in re.search(r'seed-to-soil map:\n[0-9 \n]*', self.input).group(0).split(':')[1].strip().split('\n')]
         self.soil_to_fert = [[int(y) for y in x.split(' ')] for x in re.search(r'soil-to-fertilizer map:\n[0-9 \n]*', self.input).group(0).split(':')[1].strip().split('\n')]
         self.fert_to_water = [[int(y) for y in x.split(' ')] for x in re.search(r'fertilizer-to-water map:\n[0-9 \n]*', self.input).group(0).split(':')[1].strip().split('\n')]
@@ -61,6 +67,33 @@ class Almanac:
 
         return locations
 
+def expand_ranges(numbers):
+    """
+    Given a list of numbers, uses every two numbers as a range,
+    where the first number is the starting point and the second number 
+    is the number of increments from the starting point.
+
+    Parameters:
+    numbers (list): The input list of numbers.
+
+    Returns:
+    list: A new list with expanded ranges.
+    """
+    result = []
+    for i in range(0, len(numbers), 2):
+        if i + 1 < len(numbers):
+            start = numbers[i]
+            increment = numbers[i + 1]
+            result.extend(range(start, start + increment))
+        else:
+            # If it's a single number without a pair, just add it to the list
+            result.append(numbers[i])
+    return result
 def solve_part_1(input:str):
-    alamanac = Almanac(input)
+    alamanac = Almanac(input, expand=False)
+    return min(alamanac.get_seed_locs().values())
+
+def solve_part_2(input:str):
+    alamanac = Almanac(input, expand=True)
+    print(alamanac.seeds)
     return min(alamanac.get_seed_locs().values())
